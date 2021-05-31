@@ -1,3 +1,4 @@
+/*
 package com.example.geobirdclient.ui.auth;
 
 import android.content.Intent;
@@ -167,3 +168,4 @@ public class LoginActivity extends AppCompatActivity implements UserLoginCallbac
     }
 
 }
+*/
