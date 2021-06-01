@@ -105,6 +105,14 @@
                 android:gravity="center"
                 android:text="Button" />
 
+            <Button
+                android:id="@+id/adminEditable"
+                android:layout_width="match_parent"
+                android:layout_height="700px"
+                android:foreground="@drawable/twoje_konto"
+                android:gravity="center"
+                android:text="Button" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
