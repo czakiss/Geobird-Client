@@ -1,4 +1,4 @@
-package com.example.geobirdclient.models.UserData;
+package com.example.geobirdclient.models.User;
 
 public class UserRegister {
     private String email;
@@ -36,5 +36,14 @@ public class UserRegister {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRegister{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                '}';
     }
 }

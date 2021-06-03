@@ -1,4 +1,4 @@
-package com.example.geobirdclient.models.UserData;
+package com.example.geobirdclient.models.User;
 
 public class UserLogin {
     private String email;
@@ -26,5 +26,13 @@ public class UserLogin {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "UserLogin{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

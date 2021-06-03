@@ -1,4 +1,4 @@
-package com.example.geobirdclient.models.UserData;
+package com.example.geobirdclient.models.User;
 
 public class UserDelete {
 
@@ -16,5 +16,12 @@ public class UserDelete {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDelete{" +
+                "email='" + email + '\'' +
+                '}';
     }
 }
