@@ -7,7 +7,9 @@ package com.example.geobirdclient.models.User;
      private String nickname;
      private Integer permission;
 
-    public User(Integer id, String password, String email, String nickname, Integer permission) {
+
+
+     public User(Integer id, String password, String email, String nickname, Integer permission) {
         this.id = id;
         this.password = password;
         this.email = email;
@@ -57,4 +59,15 @@ package com.example.geobirdclient.models.User;
     public void setPermission(Integer permission) {
         this.permission = permission;
     }
+
+     @Override
+     public String toString() {
+         return "User{" +
+                 "id=" + id +
+                 ", password='" + password + '\'' +
+                 ", email='" + email + '\'' +
+                 ", nickname='" + nickname + '\'' +
+                 ", permission=" + permission +
+                 '}';
+     }
 }
