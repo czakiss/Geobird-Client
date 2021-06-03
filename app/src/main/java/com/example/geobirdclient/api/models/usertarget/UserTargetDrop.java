@@ -1,10 +1,10 @@
-package com.example.geobirdclient.models.usertarget;
+package com.example.geobirdclient.api.models.usertarget;
 
-public class UserTargetGet {
+public class UserTargetDrop {
     private Integer idTarget;
     private Integer idUser;
 
-    public UserTargetGet(Integer idTarget, Integer idUser) {
+    public UserTargetDrop(Integer idTarget, Integer idUser) {
         this.idTarget = idTarget;
         this.idUser = idUser;
     }
@@ -27,7 +27,7 @@ public class UserTargetGet {
 
     @Override
     public String toString() {
-        return "UserTargetGet{" +
+        return "UserTargetDrop{" +
                 "idTarget=" + idTarget +
                 ", idUser=" + idUser +
                 '}';

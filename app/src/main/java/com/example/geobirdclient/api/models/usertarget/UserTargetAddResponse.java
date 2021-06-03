@@ -1,6 +1,4 @@
-package com.example.geobirdclient.models.usertarget;
-
-import java.util.Date;
+package com.example.geobirdclient.api.models.usertarget;
 
 public class UserTargetAddResponse {
     private String resultMessage;

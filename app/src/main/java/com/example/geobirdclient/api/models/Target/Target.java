@@ -1,15 +1,16 @@
-package com.example.geobirdclient.models.Target;
+package com.example.geobirdclient.api.models.Target;
 
-public class TargetRegister {
+
+public class Target {
     private String code;
     private String name;
     private String description;
     private Integer points;
     private String image;
-    private Double locX;
-    private Double locY;
+    private String locX;
+    private String locY;
 
-    public TargetRegister(String code, String name, String description, Integer points, String image, Double locX, Double locY) {
+    public Target(String code, String name, String description, Integer points, String image, String locX, String locY) {
         this.code = code;
         this.name = name;
         this.description = description;
@@ -59,32 +60,32 @@ public class TargetRegister {
         this.image = image;
     }
 
-    public Double getLocX() {
+    public String getLocX() {
         return locX;
     }
 
-    public void setLocX(Double locX) {
+    public void setLocX(String locX) {
         this.locX = locX;
     }
 
-    public Double getLocY() {
+    public String getLocY() {
         return locY;
     }
 
-    public void setLocY(Double locY) {
+    public void setLocY(String locY) {
         this.locY = locY;
     }
 
     @Override
     public String toString() {
-        return "TargetRegister{" +
+        return "Target{" +
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", points=" + points +
                 ", image='" + image + '\'' +
-                ", locX=" + locX +
-                ", locY=" + locY +
+                ", locX='" + locX + '\'' +
+                ", locY='" + locY + '\'' +
                 '}';
     }
 }

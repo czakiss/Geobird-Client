@@ -1,6 +1,4 @@
-package com.example.geobirdclient.models.Target;
-
-import com.example.geobirdclient.models.User.User;
+package com.example.geobirdclient.api.models.Target;
 
 public class TargetResponse {
     private Target target;
