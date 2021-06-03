@@ -1,22 +1,24 @@
-package com.example.geobirdclient.models.User;
+package com.example.geobirdclient.models.Target;
 
-public class UserResponse {
-    private User user;
+import com.example.geobirdclient.models.User.User;
+
+public class TargetResponse {
+    private Target target;
     private String resultMessage;
     private String status;
 
-    public UserResponse(User user, String resultMessage, String status) {
-        this.user = user;
+    public TargetResponse(Target target, String resultMessage, String status) {
+        this.target = target;
         this.resultMessage = resultMessage;
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
+    public Target getTarget() {
+        return target;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setTarget(Target target) {
+        this.target = target;
     }
 
     public String getResultMessage() {
@@ -37,8 +39,8 @@ public class UserResponse {
 
     @Override
     public String toString() {
-        return "UserResponse{" +
-                "user=" + user +
+        return "TargetResponse{" +
+                "target=" + target +
                 ", resultMessage='" + resultMessage + '\'' +
                 ", status='" + status + '\'' +
                 '}';
