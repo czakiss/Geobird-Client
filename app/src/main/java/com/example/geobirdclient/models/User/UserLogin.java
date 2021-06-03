@@ -1,16 +1,14 @@
-package com.example.geobirdclient.models.UserData;
+package com.example.geobirdclient.models.User;
 
-public class UserRegister {
+public class UserLogin {
     private String email;
     private String password;
-    private String nickname;
 
-    public UserRegister(String email, String password, String nickname) {
+    public UserLogin(String email, String password) {
         this.email = email;
         this.password = password;
-        this.nickname = nickname;
     }
-    public UserRegister(){
+    public UserLogin(){
 
     }
 
@@ -28,13 +26,5 @@ public class UserRegister {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 }
