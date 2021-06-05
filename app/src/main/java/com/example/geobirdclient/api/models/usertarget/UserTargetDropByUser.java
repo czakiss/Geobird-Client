@@ -1,4 +1,4 @@
-package com.example.geobirdclient.models.usertarget;
+package com.example.geobirdclient.api.models.usertarget;
 
 public class UserTargetDropByUser {
     private Integer idUser;

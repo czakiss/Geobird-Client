@@ -1,12 +1,15 @@
 package com.example.geobirdclient;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.geobirdclient.api.Api;
 import com.example.geobirdclient.api.UserService;
-import com.example.geobirdclient.models.User.User;
-import com.example.geobirdclient.models.User.UserLogin;
-import com.example.geobirdclient.models.User.UserResponse;
+import com.example.geobirdclient.api.models.User.User;
+import com.example.geobirdclient.api.models.User.UserLogin;
+import com.example.geobirdclient.api.models.User.UserResponse;
+import com.example.geobirdclient.ui.auth.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,29 +18,41 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static User currentUser;
+    MainActivity mainActivity = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        String login = sharedPreferences.getString("USER_CREDENTIALS_LOGIN", "");
+        String password = sharedPreferences.getString("USER_CREDENTIALS_PASSWORD", "");
+
         UserService service = Api.getRetrofit().create(UserService.class);
-        Call<UserResponse> call = service.loginUser(new UserLogin("zekse00@gmail.com","test123"));
+        Call<UserResponse> call = service.loginUser(new UserLogin(login,password));
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                User user = response.body().getUser();
-                if(user != null){
-                    System.out.println("xdddd "+user.getNickname());
+                UserResponse userResponse = response.body();
+                if(userResponse == null){
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
                 } else {
-                    System.out.println("not logged");
+                    currentUser = response.body().getUser();
+
+                    setContentView(R.layout.activity_main);
+                    BottomNavigationView navView = findViewById(R.id.nav_view);
+                    AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                            R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                            .build();
+                    NavController navController = Navigation.findNavController(mainActivity, R.id.nav_host_fragment);
+                    NavigationUI.setupActionBarWithNavController(mainActivity, navController, appBarConfiguration);
+                    NavigationUI.setupWithNavController(navView, navController);
                 }
             }
 
@@ -48,16 +63,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
     }
-
 }

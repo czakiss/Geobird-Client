@@ -1,21 +1,21 @@
-package com.example.geobirdclient.models.usertarget;
+package com.example.geobirdclient.api.models.usertarget;
 
-public class UserTargetGetResponse {
-    private UserTarget userTargetDataDTO;
+import java.util.List;
+
+public class UserTargetGetByResponse {
+    private List<UserTarget> userTargetDataDTO;
     private String resultMessage;
     private String addStatus;
 
-    public UserTargetGetResponse(UserTarget userTargetDataDTO, String resultMessage, String addStatus) {
+    public UserTargetGetByResponse(List<UserTarget> userTargetDataDTO) {
         this.userTargetDataDTO = userTargetDataDTO;
-        this.resultMessage = resultMessage;
-        this.addStatus = addStatus;
     }
 
-    public UserTarget getUserTargetDataDTO() {
+    public List<UserTarget> getUserTargetDataDTO() {
         return userTargetDataDTO;
     }
 
-    public void setUserTargetDataDTO(UserTarget userTargetDataDTO) {
+    public void setUserTargetDataDTO(List<UserTarget> userTargetDataDTO) {
         this.userTargetDataDTO = userTargetDataDTO;
     }
 
@@ -37,7 +37,7 @@ public class UserTargetGetResponse {
 
     @Override
     public String toString() {
-        return "UserTargetAddResponse{" +
+        return "UserTargetGetByResponse{" +
                 "userTargetDataDTO=" + userTargetDataDTO +
                 ", resultMessage='" + resultMessage + '\'' +
                 ", addStatus='" + addStatus + '\'' +

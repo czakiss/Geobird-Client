@@ -1,4 +1,4 @@
-package com.example.geobirdclient.models.Target;
+package com.example.geobirdclient.api.models.Target;
 
 public class TargetUpdate {
     private String code;

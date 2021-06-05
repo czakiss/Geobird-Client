@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_login">login</string>
+    <string name="title_password">password</string>
+    <string name="title_go_register">Go register</string>
+    <string name="incorrect_login_data">Nieprawidłowe dane logowania</string>
+    <string name="logout">wyloguj</string>
+</resources>

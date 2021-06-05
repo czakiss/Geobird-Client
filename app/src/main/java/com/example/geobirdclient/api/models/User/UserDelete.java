@@ -1,4 +1,4 @@
-package com.example.geobirdclient.models.User;
+package com.example.geobirdclient.api.models.User;
 
 public class UserDelete {
 

@@ -1,13 +1,13 @@
-package com.example.geobirdclient.models.usertarget;
+package com.example.geobirdclient.api.models.usertarget;
 
 import java.util.Date;
 
-public class UserTargetAdd {
+public class UserTarget {
     private Integer idUser;
     private Integer idTarget;
     private Date date;
 
-    public UserTargetAdd(Integer idUser, Integer idTarget, Date date) {
+    public UserTarget(Integer idUser, Integer idTarget, Date date) {
         this.idUser = idUser;
         this.idTarget = idTarget;
         this.date = date;

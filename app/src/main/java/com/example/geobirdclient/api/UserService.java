@@ -1,10 +1,10 @@
 package com.example.geobirdclient.api;
 
-import com.example.geobirdclient.models.User.User;
-import com.example.geobirdclient.models.User.UserDelete;
-import com.example.geobirdclient.models.User.UserLogin;
-import com.example.geobirdclient.models.User.UserRegister;
-import com.example.geobirdclient.models.User.UserResponse;
+import com.example.geobirdclient.api.models.User.User;
+import com.example.geobirdclient.api.models.User.UserDelete;
+import com.example.geobirdclient.api.models.User.UserLogin;
+import com.example.geobirdclient.api.models.User.UserRegister;
+import com.example.geobirdclient.api.models.User.UserResponse;
 
 import java.util.List;
 
@@ -12,7 +12,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 public interface UserService {
     @GET("api/users")
