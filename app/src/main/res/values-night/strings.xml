@@ -5,4 +5,5 @@
     <string name="title_go_register">Go register</string>
     <string name="incorrect_login_data">Nieprawidłowe dane logowania</string>
     <string name="logout">wyloguj</string>
+    <string name="qr_scan">scan qr</string>
 </resources>

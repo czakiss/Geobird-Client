@@ -22,4 +22,9 @@
         android:name="com.example.geobirdclient.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/qr_scan"
+        android:name="com.example.geobirdclient.ui.qr.QrScanFragment"
+        android:label="@string/qr_scan"
+        tools:layout="@layout/qr_scan_fragment" />
 </navigation>
