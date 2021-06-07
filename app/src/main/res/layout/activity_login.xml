@@ -18,19 +18,20 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginBottom="30dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="20dp"
             tools:src="@drawable/logo_bird" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/loginTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/title_login">
+            android:hint="@string/title_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

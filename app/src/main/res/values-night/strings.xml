@@ -16,4 +16,7 @@
     <string name="password_not_same">passwords not same</string>
     <string name="title_activity_register">register</string>
     <string name="title_register">register</string>
+    <string name="login_is_empty">login is empty</string>
+    <string name="cannot_register_data">cannot register data</string>
+    <string name="password_empty">password is empty</string>
 </resources>
