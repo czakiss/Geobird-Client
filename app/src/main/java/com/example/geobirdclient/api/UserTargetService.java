@@ -1,8 +1,8 @@
 package com.example.geobirdclient.api;
 
 import com.example.geobirdclient.api.models.usertarget.UserTarget;
-import com.example.geobirdclient.api.models.usertarget.UserTargetAdd;
-import com.example.geobirdclient.api.models.usertarget.UserTargetAddResponse;
+import com.example.geobirdclient.api.models.usertarget.UserTargetAddDTO;
+import com.example.geobirdclient.api.models.usertarget.UserTargetAddResponseDTO;
 import com.example.geobirdclient.api.models.usertarget.UserTargetDrop;
 import com.example.geobirdclient.api.models.usertarget.UserTargetDropByTarget;
 import com.example.geobirdclient.api.models.usertarget.UserTargetDropByUser;
@@ -25,7 +25,7 @@ public interface UserTargetService {
     Call<List<UserTarget>> getUserTargets();
 
     @POST("api/usertargets/add")
-    Call<UserTargetAddResponse> addUserTargets(@Body UserTargetAdd userTargetAdd);
+    Call<UserTargetAddResponseDTO> addUserTargets(@Body UserTargetAddDTO userTargetAddDTO);
 
     @POST("api/usertargets/remove")
     Call<UserTargetDropResponse> dropUserTarget(@Body UserTargetDrop userTargetDrop);

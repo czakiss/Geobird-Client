@@ -19,4 +19,11 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="incorrect_login_data">Nieprawidłowe dane logowania</string>
     <string name="logout">wyloguj</string>
+    <string name="qr_scan">scan qr</string>
+    <string name="incorrect_qr_code">incorrect QR code</string>
+    <string name="take_target">Zabierz cel</string>
+    <string name="qr_scan_info">Scan QR to find target</string>
+    <string name="qr_code_added_target">added target</string>
+    <string name="qr_code_exists_target">target exists</string>
+    <string name="error">something goes wrong</string>
 </resources>

@@ -3,6 +3,13 @@
     <string name="title_login">login</string>
     <string name="title_password">password</string>
     <string name="title_go_register">Go register</string>
-    <string name="incorrect_login_data">Nieprawidłowe dane logowania</string>
-    <string name="logout">wyloguj</string>
+    <string name="incorrect_login_data">Incorrect login date</string>
+    <string name="logout">logout</string>
+    <string name="qr_scan">Scanner</string>
+    <string name="incorrect_qr_code">Incorrect QR code</string>
+    <string name="take_target">Take target</string>
+    <string name="qr_scan_info">Scan QR to find target</string>
+    <string name="qr_code_added_target">added target</string>
+    <string name="qr_code_exists_target">target exists</string>
+    <string name="error">something goes wrong</string>
 </resources>

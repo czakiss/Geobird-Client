@@ -13,6 +13,9 @@ import com.example.geobirdclient.ui.auth.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -43,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    currentUser = response.body().getUser();
 
+                    currentUser = response.body().getUser();
                     setContentView(R.layout.activity_main);
                     BottomNavigationView navView = findViewById(R.id.nav_view);
                     AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -53,15 +56,15 @@ public class MainActivity extends AppCompatActivity {
                     NavController navController = Navigation.findNavController(mainActivity, R.id.nav_host_fragment);
                     NavigationUI.setupActionBarWithNavController(mainActivity, navController, appBarConfiguration);
                     NavigationUI.setupWithNavController(navView, navController);
+
                 }
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                System.out.println("upsss"+ t.getMessage());
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
             }
         });
-
-
     }
 }
