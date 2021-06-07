@@ -19,4 +19,23 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="incorrect_login_data">Nieprawidłowe dane logowania</string>
     <string name="logout">wyloguj</string>
+    <string name="qr_scan">scan qr</string>
+    <string name="incorrect_qr_code">incorrect QR code</string>
+    <string name="take_target">Zabierz cel</string>
+    <string name="qr_scan_info">Scan QR to find target</string>
+    <string name="qr_code_added_target">added target</string>
+    <string name="qr_code_exists_target">target exists</string>
+    <string name="error">something goes wrong</string>
+    <string name="incorect_password">One of the passwords is incorrect</string>
+    <string name="mail_is_empty">Empty mail</string>
+    <string name="mail_incorrect">Sorry, your email is incorrect</string>
+    <string name="register_failed">Register failed</string>
+    <string name="register_successful">Successful registration</string>
+    <string name="title_email">email</string>
+    <string name="password_not_same">passwords not same</string>
+    <string name="title_activity_register">register</string>
+    <string name="title_register">register</string>
+    <string name="login_is_empty">login is empty</string>
+    <string name="cannot_register_data">cannot register data</string>
+    <string name="password_empty">password is empty</string>
 </resources>

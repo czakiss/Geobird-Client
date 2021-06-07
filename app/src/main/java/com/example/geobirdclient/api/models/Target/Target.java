@@ -1,16 +1,17 @@
 package com.example.geobirdclient.api.models.Target;
 
-
 public class Target {
+    private Integer id;
     private String code;
     private String name;
     private String description;
     private Integer points;
     private String image;
-    private String locX;
-    private String locY;
+    private Double locX;
+    private Double locY;
 
-    public Target(String code, String name, String description, Integer points, String image, String locX, String locY) {
+    public Target(Integer id, String code, String name, String description, Integer points, String image, Double locX, Double locY) {
+        this.id = id;
         this.code = code;
         this.name = name;
         this.description = description;
@@ -18,6 +19,14 @@ public class Target {
         this.image = image;
         this.locX = locX;
         this.locY = locY;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCode() {
@@ -60,32 +69,33 @@ public class Target {
         this.image = image;
     }
 
-    public String getLocX() {
+    public Double getLocX() {
         return locX;
     }
 
-    public void setLocX(String locX) {
+    public void setLocX(Double locX) {
         this.locX = locX;
     }
 
-    public String getLocY() {
+    public Double getLocY() {
         return locY;
     }
 
-    public void setLocY(String locY) {
+    public void setLocY(Double locY) {
         this.locY = locY;
     }
 
     @Override
     public String toString() {
-        return "Target{" +
-                "code='" + code + '\'' +
+        return "TargetDataDTO{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", points=" + points +
                 ", image='" + image + '\'' +
-                ", locX='" + locX + '\'' +
-                ", locY='" + locY + '\'' +
+                ", locX=" + locX +
+                ", locY=" + locY +
                 '}';
     }
 }
