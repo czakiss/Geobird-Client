@@ -5,18 +5,18 @@ public class TargetResponse {
     private String resultMessage;
     private String status;
 
-    public TargetResponse(Target target, String resultMessage, String status) {
-        this.target = target;
+    public TargetResponse(Target targetX, String resultMessage, String status) {
+        this.target = targetX;
         this.resultMessage = resultMessage;
         this.status = status;
     }
 
-    public Target getTarget() {
+    public Target getTargetX() {
         return target;
     }
 
-    public void setTarget(Target target) {
-        this.target = target;
+    public void setTargetX(Target targetX) {
+        this.target = targetX;
     }
 
     public String getResultMessage() {
