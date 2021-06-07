@@ -24,4 +24,8 @@
     <string name="mail_incorrect">Sorry, your email is incorrect</string>
     <string name="register_failed">Register failed</string>
     <string name="register_successful">Successful registration</string>
+    <string name="title_email">email</string>
+    <string name="password_not_same">passwords not same</string>
+    <string name="title_activity_register">register</string>
+    <string name="title_register">register</string>
 </resources>

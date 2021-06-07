@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout textPassword;
     private Button loginButton;
     private Button goRegisterButton;
+    private ImageView image;
     ModalWidgets modalWidgets = new ModalWidgets(this);
 
 
@@ -37,10 +39,10 @@ public class LoginActivity extends AppCompatActivity {
         textPassword = findViewById(R.id.passwordTextField);
         loginButton = findViewById(R.id.loginButton);
         goRegisterButton = findViewById(R.id.goRegisterButton);
+        image =findViewById(R.id.imageView);
+        Glide.with(activity).load(target.getImage()).into(targetImageView);
         addActions();
     }
-
-
 
     private void addActions() {
         loginButton.setOnClickListener(view -> {
@@ -68,6 +70,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+
+        goRegisterButton.setOnClickListener(view ->{
+            redirectToRegister();
+        });
     }
 
     public void saveUserCredentials(String login, String password) {
@@ -85,5 +91,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void redirectToRegister() {
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
+    }
 
 }

@@ -4,113 +4,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="30dp"
     tools:context=".ui.register.RegisterFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="153dp"
-        tools:layout_editor_absoluteY="243dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="30dp"
             tools:src="@drawable/logo_bird" />
 
-        <TextView
-            android:id="@+id/nickNameText"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="Nickname"
-            android:textColor="#801F79"
-            android:textSize="20sp" />
+            android:hint="@string/title_login">
 
-        <EditText
-            android:id="@+id/nickNameTextEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:fontFamily="@font/abril_fatface"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:textColor="#FFFFFF" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/emailText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="Email"
-            android:textColor="#801F79"
-            android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/emailTextEdit"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:fontFamily="@font/abril_fatface"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:textColor="#FFFFFF" />
+            android:layout_marginTop="20dp"
+            android:hint="@string/title_email">
 
-        <TextView
-            android:id="@+id/passwordText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="Password"
-            android:textColor="#801F79"
-            android:textSize="20sp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/passwordTextEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:fontFamily="@font/abril_fatface"
-            android:inputType="textPassword"
-            android:textColor="#FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/repeatPassword"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="Repeat password"
-            android:textColor="#801F79"
-            android:textSize="20sp" />
+            android:hint="@string/title_password"
+            app:endIconMode="password_toggle">
 
-        <EditText
-            android:id="@+id/repeatPasswordTextEdit"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordRepeatTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:fontFamily="@font/abril_fatface"
-            android:inputType="textPassword"
-            android:textColor="#FFFFFF" />
+            android:hint="@string/title_password"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/buttonRegister"
-            style="@style/Widget.AppCompat.Button"
+            android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Button" />
+            android:text="@string/title_register" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

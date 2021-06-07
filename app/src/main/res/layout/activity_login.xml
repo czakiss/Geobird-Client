@@ -15,6 +15,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="30dp"
+            tools:src="@drawable/logo_bird" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/loginTextField"
             android:layout_width="match_parent"

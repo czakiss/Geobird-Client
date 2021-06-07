@@ -16,9 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeoBirdClient"
         tools:targetApi="n">
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+        <activity android:name=".ui.auth.RegisterActivity"/>
 
         <meta-data
             android:name="com.google.android.actions"
