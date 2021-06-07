@@ -25,7 +25,7 @@ import retrofit2.Call;
 
 public class GalleryAdapter extends BaseAdapter {
 
-    private Context mContext;
+    private GalleryFragment mContext;
     private List<Target> localDataSet;
 
     public GalleryAdapter(GalleryFragment mContext) {
@@ -34,6 +34,7 @@ public class GalleryAdapter extends BaseAdapter {
     //TODO: ALSO THIS CHECK!!!
 
     public GalleryAdapter(Target[] targets) {
+        this.localDataSet = localDataSet;
     }
 
     @Override
