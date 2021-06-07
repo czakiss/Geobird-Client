@@ -19,4 +19,5 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="incorrect_login_data">Nieprawidłowe dane logowania</string>
     <string name="logout">wyloguj</string>
+    <string name="incorrect_data">Datas incorrect</string>
 </resources>
