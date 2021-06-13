@@ -24,6 +24,11 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
+        android:id="@+id/navigation_gallery"
+        android:name="com.example.geobirdclient.ui.gallery.GalleryFragment"
+        android:label="@string/title_gallery"
+        tools:layout="@layout/fragment_gallery" />
+    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.geobirdclient.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
