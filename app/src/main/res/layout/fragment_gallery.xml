@@ -13,23 +13,16 @@
         tools:layout_editor_absoluteX="143dp"
         tools:layout_editor_absoluteY="234dp">
 
-        <LinearLayout
+        <GridView
+            android:id="@+id/grid_view_gallery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <GridView
-                android:id="@+id/grid_view_gallery"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:columnWidth="90dp"
-                android:gravity="center"
-                android:horizontalSpacing="20dp"
-                android:numColumns="2"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="20dp"></GridView>
-
-        </LinearLayout>
+            android:columnWidth="90dp"
+            android:gravity="center"
+            android:horizontalSpacing="20dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="20dp" />
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

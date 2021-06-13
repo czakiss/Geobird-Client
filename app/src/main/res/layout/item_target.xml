@@ -17,15 +17,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/image_creture"
-                android:layout_width="match_parent"
-                android:layout_height="171dp"
-                android:layout_marginTop="20dp"
-                app:srcCompat="@drawable/ic_launcher_background" />
-
             <TextView
-                android:id="@+id/title_name_creature"
+                android:id="@+id/title_name_target"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="20dp"

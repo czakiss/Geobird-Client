@@ -21,4 +21,10 @@
         android:icon="@drawable/ic_code_scanner_auto_focus_off"
         android:title="@string/qr_scan" />
 
+    <item
+        android:id="@+id/navigation_gallery"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_gallery" />
+
+
 </menu>
