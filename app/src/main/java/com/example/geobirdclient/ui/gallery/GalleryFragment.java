@@ -1,11 +1,15 @@
 package com.example.geobirdclient.ui.gallery;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,9 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.geobirdclient.MainActivity;
 import com.example.geobirdclient.R;
 import com.example.geobirdclient.api.Api;
+import com.example.geobirdclient.api.TargetService;
 import com.example.geobirdclient.api.UserService;
 import com.example.geobirdclient.api.UserTargetService;
 import com.example.geobirdclient.api.models.Target.Target;
+import com.example.geobirdclient.api.models.Target.TargetGetResponse;
 import com.example.geobirdclient.api.models.User.User;
 import com.example.geobirdclient.api.models.User.UserLogin;
 import com.example.geobirdclient.api.models.User.UserResponse;
@@ -35,61 +41,63 @@ import retrofit2.Response;
 
 public class GalleryFragment extends Fragment {
 
-    private GridView galleryGridView;
-    private GalleryViewModel galleryViewModel;
-    private List<UserTarget> targetList = new ArrayList<>();
+    private GridView gridView;
+    private List<UserTarget> targetList = new ArrayList<UserTarget>();
+    List<Target> targets;
     private ModalWidgets modalWidgets = new ModalWidgets(getActivity());
+    private Activity activity;
+    Fragment fragment = this;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel = new ViewModelProvider(this).get(GalleryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery,container,false);
+        activity = getActivity();
+        modalWidgets = new ModalWidgets(activity);
 
+        gridView = (GridView) root.findViewById(R.id.grid_view_gallery);
 
-        UserTargetService service = Api.getRetrofit().create(UserTargetService.class);
-        Call<UserTargetGetByResponse> call = service.getUserTargetByUser(new UserTargetGetByUser(MainActivity.currentUser.getId()));
-        call.enqueue(new Callback<UserTargetGetByResponse>() {
+        UserTargetService serviceUTarget = Api.getRetrofit().create(UserTargetService.class);
+        Call<UserTargetGetByResponse> callUTarget = serviceUTarget.getUserTargetByUser(new UserTargetGetByUser(MainActivity.currentUser.getId()));
+        callUTarget.enqueue(new Callback<UserTargetGetByResponse>() {
             @Override
             public void onResponse(Call<UserTargetGetByResponse> call, Response<UserTargetGetByResponse> response) {
                 UserTargetGetByResponse userTargetGetByResponse = response.body();
                 if(userTargetGetByResponse !=null){
-                    targetList = userTargetGetByResponse.getUserTargetDataDTO();
-                    System.out.println("zaladowano: " + targetList.toString());
+                    targetList = userTargetGetByResponse.getUserTargetDataDTOS();
+
+                    TargetService serviceTarget = Api.getRetrofit().create(TargetService.class);
+                    Call<List<Target>> callTarget = serviceTarget.getTargets();
+                    callTarget.enqueue(new Callback<List<Target>>() {
+                        @Override
+                        public void onResponse(Call<List<Target>> call, Response<List<Target>> response) {
+                            targets = response.body();
+                            if(targets !=null){
+                                System.out.println("zaladowano: " + targets);
+
+                                GalleryAdapter galleryAdapter = new GalleryAdapter(fragment.getContext(),targets, targetList);
+
+                                gridView.setAdapter(galleryAdapter);
+                            } else {
+                                System.out.println(response.message());
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<List<Target>> call, Throwable t) {
+                            modalWidgets.showToast(getString(R.string.error));
+                        }
+                    });
+
                 } else {
-                    modalWidgets.showToast(getString(R.string.incorrect_login_data));
+                    modalWidgets.showToast(getString(R.string.error));
+                    System.out.println(response.message());
                 }
             }
-
             @Override
             public void onFailure(Call<UserTargetGetByResponse> call, Throwable t) {
                 System.out.println("Cos poszlo nie tak: "+ t.getMessage());
             }
         });
-
-        ArrayAdapter<Target> cheeseAdapter =
-                new ArrayAdapter<Target>(getActivity(),
-                        R.layout.item_character_gallery,
-                        R.id.image_target,
-                        R.id.title_name_target,
-                        targetList[0]
-                );
-
-        galleryGridView = root.findViewById(R.id.grid_view_gallery);
-        galleryGridView.setLayout
-        galleryGridView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-       // galleryGridView.setHasFixedSize(true);
-
-        //TODO: CHECK THIS CHECK THIS !!
-        //new TargetService().getTargets(this, MainActivity.currentUser);
-
         return root;
     }
-
-    public void drawGallery(Target[] targets) {
-        GalleryAdapter targetAdapter = new GalleryAdapter(targets);
-        galleryGridView.setAdapter(targetAdapter);
-        galleryGridView.setVisibility(View.VISIBLE);
-    }
-
 
 }

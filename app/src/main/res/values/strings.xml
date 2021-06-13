@@ -38,4 +38,5 @@
     <string name="login_is_empty">login is empty</string>
     <string name="cannot_register_data">cannot register data</string>
     <string name="password_empty">password is empty</string>
+    <string name="title_gallery">Galeria</string>
 </resources>

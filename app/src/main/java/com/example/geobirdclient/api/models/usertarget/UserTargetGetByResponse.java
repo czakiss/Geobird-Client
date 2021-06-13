@@ -3,20 +3,20 @@ package com.example.geobirdclient.api.models.usertarget;
 import java.util.List;
 
 public class UserTargetGetByResponse {
-    private List<UserTarget> userTargetDataDTO;
+    private List<UserTarget> userTargetDataDTOS;
     private String resultMessage;
-    private String addStatus;
+    private String getStatus;
 
-    public UserTargetGetByResponse(List<UserTarget> userTargetDataDTO) {
-        this.userTargetDataDTO = userTargetDataDTO;
+    public UserTargetGetByResponse(List<UserTarget> userTargetDataDTOS) {
+        this.userTargetDataDTOS = userTargetDataDTOS;
     }
 
-    public List<UserTarget> getUserTargetDataDTO() {
-        return userTargetDataDTO;
+    public List<UserTarget> getUserTargetDataDTOS() {
+        return userTargetDataDTOS;
     }
 
-    public void setUserTargetDataDTO(List<UserTarget> userTargetDataDTO) {
-        this.userTargetDataDTO = userTargetDataDTO;
+    public void setUserTargetDataDTOS(List<UserTarget> userTargetDataDTOS) {
+        this.userTargetDataDTOS = userTargetDataDTOS;
     }
 
     public String getResultMessage() {
@@ -27,20 +27,20 @@ public class UserTargetGetByResponse {
         this.resultMessage = resultMessage;
     }
 
-    public String getAddStatus() {
-        return addStatus;
+    public String getGetStatus() {
+        return getStatus;
     }
 
-    public void setAddStatus(String addStatus) {
-        this.addStatus = addStatus;
+    public void setGetStatus(String addStatus) {
+        this.getStatus = addStatus;
     }
 
     @Override
     public String toString() {
         return "UserTargetGetByResponse{" +
-                "userTargetDataDTO=" + userTargetDataDTO +
+                "userTargetDataDTOS=" + userTargetDataDTOS +
                 ", resultMessage='" + resultMessage + '\'' +
-                ", addStatus='" + addStatus + '\'' +
+                ", addStatus='" + getStatus + '\'' +
                 '}';
     }
 }

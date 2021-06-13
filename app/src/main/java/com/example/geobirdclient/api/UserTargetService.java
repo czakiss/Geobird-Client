@@ -39,10 +39,10 @@ public interface UserTargetService {
     @POST("api/usertargets/get")
     Call<UserTargetGetResponse> getUserTarget(@Body UserTargetGet userTargetGet);
 
-    @POST("api/usertargets/get")
+    @POST("api/usertargets/getbyuser")
     Call<UserTargetGetByResponse> getUserTargetByUser(@Body UserTargetGetByUser userTargetGetByUser);
 
-    @POST("api/usertargets/get")
+    @POST("api/usertargets/getbytarget")
     Call<UserTargetGetByResponse> getUserTargetByTarget(@Body UserTargetGetByTarget userTargetGetByTarget);
 
 }
