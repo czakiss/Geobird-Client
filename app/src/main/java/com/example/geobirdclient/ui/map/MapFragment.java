@@ -2,11 +2,13 @@ package com.example.geobirdclient.ui.map;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,8 @@ import com.example.geobirdclient.api.Api;
 import com.example.geobirdclient.api.TargetService;
 import com.example.geobirdclient.api.models.Target.Target;
 import com.example.geobirdclient.api.models.Target.TargetResponse;
+import com.example.geobirdclient.ui.qr.QrScanFragment;
+import com.example.geobirdclient.ui.qr.QrScanViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -27,6 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,6 +75,19 @@ public class MapFragment extends AppCompatActivity implements OnMapReadyCallback
             return;
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
+
+        //-----------------SZUKANIE W POBLIZU
+        locationManager.getAllProviders();
+        //locationManager.GPS_PROVIDER. https://developer.android.com/reference/android/location/LocationManager#GPS_PROVIDER
+
+
+        scanobject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(this, QrScanFragment.class);
+                startActivity(intent);
+            }
+        });
 
 //https://javapapers.com/android/get-current-location-in-android/
     }
