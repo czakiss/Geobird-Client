@@ -38,4 +38,7 @@
     <string name="login_is_empty">login is empty</string>
     <string name="cannot_register_data">cannot register data</string>
     <string name="password_empty">password is empty</string>
+    <string name="nick_new_password">Nick new password</string>
+    <string name="incorrect_get_users">Sorry List is empty</string>
+    <string name="wrong_repeat_password">Sorry, your passwords are difrend</string>
 </resources>

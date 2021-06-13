@@ -10,6 +10,7 @@ import com.example.geobirdclient.api.models.User.User;
 import com.example.geobirdclient.api.models.User.UserLogin;
 import com.example.geobirdclient.api.models.User.UserResponse;
 import com.example.geobirdclient.ui.auth.LoginActivity;
+import com.example.geobirdclient.ui.editUsers.EditUserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
