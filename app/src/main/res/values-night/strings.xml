@@ -21,4 +21,5 @@
     <string name="password_empty">password is empty</string>
     <string name="title_gallery">Galeria</string>
     <string name="target_preview">target preview</string>
+    <string name="title_map">map</string>
 </resources>
