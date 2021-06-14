@@ -130,8 +130,6 @@ public class QrScanFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     mCodeScanner.startPreview();
-
-
                 }
             });
         }
