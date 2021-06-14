@@ -93,6 +93,8 @@ public class QrScanFragment extends Fragment {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            System.out.println("test" + result.getText());
+
                             TargetService service = Api.getRetrofit().create(TargetService.class);
                             Call<TargetGetResponse> call = service.getTarget(new TargetGet(result.getText()));
                             call.enqueue(new Callback<TargetGetResponse>() {
@@ -115,6 +117,7 @@ public class QrScanFragment extends Fragment {
 
                                 @Override
                                 public void onFailure(Call<TargetGetResponse> call, Throwable t) {
+                                    System.out.println(t.getMessage());
                                     Toast.makeText(activity, "Something goes wrong: "+ t.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
