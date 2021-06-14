@@ -9,13 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.example.geobirdclient.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_qr_scan"
-            app:destination="@id/navigation_qr_scan"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -27,7 +21,18 @@
         android:id="@+id/navigation_gallery"
         android:name="com.example.geobirdclient.ui.gallery.GalleryFragment"
         android:label="@string/title_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_navigation_gallery_to_navigation_target_preview"
+            app:destination="@id/navigation_target_preview"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_target_preview"
+        android:name="com.example.geobirdclient.ui.gallery.GalleryFragment"
+        android:label="@string/target_preview"
+        tools:layout="@layout/fragment_gallery"/>
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.geobirdclient.ui.notifications.NotificationsFragment"
@@ -39,9 +44,7 @@
         android:label="@string/qr_scan"
         tools:layout="@layout/fragment_qr_scan" >
         <action
-            android:id="@+id/action_navigation_qr_scan_to_navigation_home"
-            app:destination="@id/navigation_home"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
+            android:id="@+id/action_navigation_qr_scan_to_navigation_target_preview"
+            app:destination="@id/navigation_target_preview" />
     </fragment>
 </navigation>
