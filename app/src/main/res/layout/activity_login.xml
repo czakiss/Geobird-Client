@@ -31,7 +31,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColorHighlight="@color/violet"
+                android:textColorHint="@color/violet"
+                android:textColorLink="@color/purple" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,7 +49,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColorHighlight="@color/violet"
+                android:textColorHint="@color/violet"
+                android:textColorLink="@color/purple" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,7 +61,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/title_login" />
+            android:background="@drawable/logo_gradient"
+            android:text="@string/title_login"
+            android:textColorHighlight="@color/violet"
+            android:textColorHint="@color/violet"
+            android:textColorLink="@color/purple" />
 
         <Button
             android:id="@+id/goRegisterButton"
@@ -63,7 +73,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:text="@string/title_go_register" />
+            android:background="@drawable/logo_gradient"
+            android:text="@string/title_go_register"
+            android:textColorHighlight="@color/violet"
+            android:textColorHint="@color/violet"
+            android:textColorLink="@color/purple" />
 
     </LinearLayout>
 
