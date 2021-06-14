@@ -87,9 +87,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 saveUserCredentials(login,password);
                                 redirectToMain(user);
                             } else {
+                                System.out.println("not register");
                                 modalWidgets.showToast(getString(R.string.cannot_register_data));
                             }
                         } else {
+                            System.out.println("problem");
                             modalWidgets.showToast(getString(R.string.error));
                         }
                     }
