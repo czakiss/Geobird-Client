@@ -7,22 +7,76 @@
     tools:context=".ui.gallery.GalleryFragment">
 
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="143dp"
-        tools:layout_editor_absoluteY="234dp">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <GridView
-            android:id="@+id/grid_view_gallery"
+        <LinearLayout
+            android:id="@+id/targetLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnWidth="90dp"
-            android:gravity="center"
-            android:horizontalSpacing="20dp"
-            android:numColumns="auto_fit"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="20dp" />
-    </ScrollView>
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/targetImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                tools:src="@tools:sample/avatars" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/targetTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/targetDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="TextView" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <GridView
+                    android:id="@+id/grid_view_gallery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnWidth="90dp"
+                    android:gravity="center"
+                    android:horizontalSpacing="20dp"
+                    android:numColumns="auto_fit"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="20dp" />
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

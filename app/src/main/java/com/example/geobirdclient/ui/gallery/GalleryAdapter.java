@@ -1,6 +1,7 @@
 package com.example.geobirdclient.ui.gallery;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -8,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
 import com.example.geobirdclient.R;
@@ -29,6 +33,7 @@ public class GalleryAdapter extends BaseAdapter {
     private Context context;
     private List<Target> targets;
     private List<UserTarget> userTargets = new ArrayList<UserTarget>();
+    private Activity activity;
 
 
     public GalleryAdapter(Context context, List<Target> targets, List<UserTarget> userTargets) {
@@ -66,6 +71,7 @@ public class GalleryAdapter extends BaseAdapter {
 
             ImageView imageView = (ImageView) gridView.findViewById(R.id.targetImageView);
             TextView textView = (TextView) gridView.findViewById(R.id.textTarget);
+            LinearLayout linearLayout = (LinearLayout) gridView.findViewById(R.id.targetWindow);
             Integer id = targets.get(position).getId();
             List<UserTarget> checker = userTargets.stream().filter(x -> x.getIdTarget() == id).collect(Collectors.toList());
             if( checker.size() == 0){
