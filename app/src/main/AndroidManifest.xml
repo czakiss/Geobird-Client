@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="com.vallabh.googlemapspractice.permission.MAPS_RECEIVE" />
+
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +23,8 @@
         tools:targetApi="n">
         <activity android:name=".ui.auth.RegisterActivity"/>
 
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCX0SLotQ32L8kU9CHBMqFiunVMR3MUgng"/>
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/network_security_config" />
