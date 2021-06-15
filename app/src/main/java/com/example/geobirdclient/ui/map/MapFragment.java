@@ -1,6 +1,7 @@
 package com.example.geobirdclient.ui.map;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
@@ -8,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -34,6 +36,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -44,115 +48,114 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements LocationListener {
 
-    private Activity activity;
-    private MapViewModel mViewModel;
-    private MapView mapView;
-    GoogleMap googleMap;
-    private Button findNewObject;
-    private Button scanobject;
-    protected LocationManager locationManager;
-    protected LocationListener locationListener;
-    String lat;
-    String provider;
-    protected String latitude,longitude;
-    protected boolean gps_enabled,network_enabled;
+    MapView mMapView;
+    private GoogleMap googleMap;
 
-    public static MapFragment newInstance() {
-        return new MapFragment();
-    }
+    private final float[] BITMAP_COLORS = {
+            BitmapDescriptorFactory.HUE_AZURE,
+            BitmapDescriptorFactory.HUE_BLUE,
+            BitmapDescriptorFactory.HUE_CYAN,
+            BitmapDescriptorFactory.HUE_GREEN,
+            BitmapDescriptorFactory.HUE_MAGENTA,
+            BitmapDescriptorFactory.HUE_ORANGE,
+            BitmapDescriptorFactory.HUE_RED,
+            BitmapDescriptorFactory.HUE_ROSE,
+            BitmapDescriptorFactory.HUE_VIOLET,
+            BitmapDescriptorFactory.HUE_YELLOW,
+    };
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_map, container, false);
-        activity = getActivity();
-        mapView =  root.findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // inflat and return the layout
+        View v = inflater.inflate(R.layout.fragment_map, container,
+                false);
+        mMapView = (MapView) v.findViewById(R.id.mapView);
+        mMapView.onCreate(savedInstanceState);
 
-        addAction();
-        return root;
-    }
+        mMapView.onResume();// needed to get the map to display immediately
 
-    private void addAction() {
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
+        mMapView.getMapAsync(googleMap -> {
 
-        //-----------------SZUKANIE W POBLIZU
-        locationManager.getAllProviders();
-        //locationManager.GPS_PROVIDER. https://developer.android.com/reference/android/location/LocationManager#GPS_PROVIDER
+            if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                            PackageManager.PERMISSION_GRANTED) {
+                googleMap.setMyLocationEnabled(true);
+                googleMap.getUiSettings().setMyLocationButtonEnabled(true);
 
-
-
-
-//https://javapapers.com/android/get-current-location-in-android/
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MapViewModel.class);
-    }
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-
-        MapsInitializer.initialize(this.getActivity());
-
-        System.out.println("XFDD");
-        //pobieranie danych dot. celow
-        TargetService targetService = Api.getRetrofit().create(TargetService.class);
-        Call<List<Target>> call = targetService.getTargets();
-
-        call.enqueue(new Callback<List<Target>>() {
-            @Override
-            public void onResponse(Call<List<Target>> call, Response<List<Target>> response) {
-                List<Target> targetList = response.body();
-                System.out.println("pokaz targets: " + targetList);
-
-                List<LatLng> latLngO = new ArrayList<>();
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            }
 
 
-                for (int i = 0; i < targetList.size(); i++){
-                    LatLng location = new LatLng(targetList.get(i).getLocX(), targetList.get(i).getLocY());
-                    latLngO.add(location);
-                }
-// dodawanie punktow na mapie
 
+            TargetService targetService = Api.getRetrofit().create(TargetService.class);
+            Call<List<Target>> call = targetService.getTargets();
 
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(@NonNull LatLng latLng) {
-                        for (int i = 0; i <= latLngO.size(); i++){
-                            latLng = latLngO.get(i);
-                            MarkerOptions markerOptions = new MarkerOptions();
-                            markerOptions.position(latLng);
-                            markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-                            googleMap.clear();
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                            googleMap.addMarker(markerOptions);
-                        }
+            call.enqueue(new Callback<List<Target>>() {
+                @Override
+                public void onResponse(Call<List<Target>> call, Response<List<Target>> response) {
+                    List<Target> targetList = response.body();
+                    System.out.println("pokaz targets: " + targetList);
+
+                    for (int i = 0; i < targetList.size(); i++){
+                        MarkerOptions marker = new MarkerOptions().position(
+                                new LatLng(targetList.get(i).getLocX(), targetList.get(i).getLocY())).title(targetList.get(i).getName());
+
+                        marker.icon(BitmapDescriptorFactory.defaultMarker(BITMAP_COLORS[i%(BITMAP_COLORS.length-1)]));
+
+                        googleMap.addMarker(marker);
                     }
-                });
 
-            }
+                }
 
-            @Override
-            public void onFailure(Call<List<Target>> call, Throwable t) {
+                @Override
+                public void onFailure(Call<List<Target>> call, Throwable t) {
 
-            }
+                }
+            });
         });
+
+        return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMapView.onLowMemory();
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(location.getLatitude(), location.getLongitude())).zoom(12).build();
+        googleMap.animateCamera(CameraUpdateFactory
+                .newCameraPosition(cameraPosition));
     }
 }
