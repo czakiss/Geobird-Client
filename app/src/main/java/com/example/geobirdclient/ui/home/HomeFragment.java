@@ -11,32 +11,53 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.geobirdclient.MainActivity;
 import com.example.geobirdclient.R;
+import com.example.geobirdclient.api.Api;
+import com.example.geobirdclient.api.TargetService;
+import com.example.geobirdclient.api.UserTargetService;
+import com.example.geobirdclient.api.models.Target.Target;
+import com.example.geobirdclient.api.models.usertarget.UserTarget;
+import com.example.geobirdclient.api.models.usertarget.UserTargetGetByResponse;
+import com.example.geobirdclient.api.models.usertarget.UserTargetGetByUser;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private View root;
     private Button loginButton;
+    private Button newTargetButton;
+    private Button editUser;
+    private TextView nickname;
+    private TextView email;
+    private TextView points;
+    private List<UserTarget> targetList = new ArrayList<UserTarget>();
+    private Integer summary;
+    List<Target> targets;
+    Fragment fragment = this;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         loginButton = root.findViewById(R.id.logoutButton);
+        newTargetButton = root.findViewById(R.id.button_add_taget);
+        editUser = root.findViewById(R.id.button_edit_user);
+        nickname = root.findViewById(R.id.nickname_view);
+        email = root.findViewById(R.id.email_text_view);
+        points = root.findViewById(R.id.points_text_view);
+
         addActions();
 
         return root;
@@ -49,6 +70,66 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(getActivity(), MainActivity.class);
             startActivity(intent);
         });
+
+       nickname.setText(MainActivity.currentUser.getNickname());
+       email.setText(MainActivity.currentUser.getEmail());
+
+        UserTargetService serviceUTarget = Api.getRetrofit().create(UserTargetService.class);
+        Call<UserTargetGetByResponse> callUTarget = serviceUTarget.getUserTargetByUser(new UserTargetGetByUser(MainActivity.currentUser.getId()));
+        callUTarget.enqueue(new Callback<UserTargetGetByResponse>() {
+            @Override
+            public void onResponse(Call<UserTargetGetByResponse> call, Response<UserTargetGetByResponse> response) {
+                UserTargetGetByResponse userTargetGetByResponse = response.body();
+                if(userTargetGetByResponse !=null){
+                    targetList = userTargetGetByResponse.getUserTargetDataDTOS();
+
+                    TargetService serviceTarget = Api.getRetrofit().create(TargetService.class);
+                    Call<List<Target>> callTarget = serviceTarget.getTargets();
+
+
+
+                    callTarget.enqueue(new Callback<List<Target>>() {
+                        @Override
+                        public void onResponse(Call<List<Target>> call, Response<List<Target>> response) {
+                            targets = response.body();
+                            if(targets !=null){
+                                Integer sum = 0;
+
+                                for(int i =0; i <= targets.size();i++){
+
+                                    sum = sum + Integer.parseInt(targets.get(i).getPoints().toString());
+                                    summary = sum;
+                                }
+                                System.out.println("zaladowano: " + targets);
+
+                            } else {
+                                System.out.println(response.message());
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<List<Target>> call, Throwable t) {
+
+                        }
+                    });
+
+                } }
+            @Override
+            public void onFailure(Call<UserTargetGetByResponse> call, Throwable t) {
+                System.out.println("Cos poszlo nie tak: "+ t.getMessage());
+            }
+        });
+
+
+        points.setText(summary.toString());
+
+        if(MainActivity.currentUser.getPermission() == 1){
+            newTargetButton.setVisibility(View.VISIBLE);
+            editUser.setVisibility(View.VISIBLE);
+        }else{
+            newTargetButton.setVisibility(View.GONE);
+            editUser.setVisibility(View.GONE);
+        }
+
     }
 
     public void dropUserCredentials() {
@@ -59,4 +140,6 @@ public class HomeFragment extends Fragment {
         editor.remove("USER_CREDENTIALS_PASSWORD");
         editor.apply();
     }
-}
+
+
+    }
