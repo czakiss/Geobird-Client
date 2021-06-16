@@ -41,7 +41,6 @@ public class HomeFragment extends Fragment {
     private View root;
     private Button loginButton;
     private Button newTargetButton;
-    private Button editUser;
     private TextView nickname;
     private TextView email;
     private TextView points;
@@ -58,7 +57,6 @@ public class HomeFragment extends Fragment {
 
         loginButton = root.findViewById(R.id.logoutButton);
         newTargetButton = root.findViewById(R.id.button_add_taget);
-        editUser = root.findViewById(R.id.button_edit_user);
         nickname = root.findViewById(R.id.nickname_view);
         email = root.findViewById(R.id.email_text_view);
         points = root.findViewById(R.id.points_text_view);
@@ -135,10 +133,8 @@ public class HomeFragment extends Fragment {
 
         if(MainActivity.currentUser.getPermission() == 1){
             newTargetButton.setVisibility(View.VISIBLE);
-            editUser.setVisibility(View.VISIBLE);
         }else{
             newTargetButton.setVisibility(View.GONE);
-            editUser.setVisibility(View.GONE);
         }
 
     }
