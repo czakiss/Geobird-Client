@@ -305,6 +305,7 @@ public class GalleryFragment extends Fragment {
         });
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onItemClick(AdapterView<?> parent, View v,
@@ -316,7 +317,7 @@ public class GalleryFragment extends Fragment {
                 Target target = (Target) parent.getItemAtPosition(position);
                 System.out.println(target);
 
-                List<UserTarget> checker = targetList.stream().filter(x -> x.getIdTarget() == id).collect(Collectors.toList());
+                List<UserTarget> checker = targetList.stream().filter(x -> x.getIdTarget() == target.getId()).collect(Collectors.toList());
                 System.out.println("userp:" + MainActivity.currentUser.getPermission());
                 if( checker.size() == 0 && MainActivity.currentUser.getPermission() == 0 ){
                     Glide.with(activity).load(activity.getResources().getDrawable(R.drawable.logo_bird)).into(targetImage);
