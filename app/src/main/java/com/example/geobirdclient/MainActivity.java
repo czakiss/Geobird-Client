@@ -29,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
     public static User currentUser;
     public MainActivity mainActivity = this;
     public static NavController navController;
+
+    @Override
+    public void onBackPressed () {
+        System.out.println("elo");
+        navController.getPreviousBackStackEntry();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                             R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                             .build();
                     navController = Navigation.findNavController(mainActivity, R.id.nav_host_fragment);
-                    NavigationUI.setupActionBarWithNavController(mainActivity, navController, appBarConfiguration);
                     NavigationUI.setupWithNavController(navView, navController);
 
                 }

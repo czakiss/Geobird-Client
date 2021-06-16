@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
 import com.example.geobirdclient.MainActivity;
 import com.example.geobirdclient.R;
 import com.example.geobirdclient.api.Api;
@@ -30,6 +33,7 @@ import com.example.geobirdclient.api.models.usertarget.UserTargetGetByUser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +44,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private View root;
     private Button loginButton;
+    private Button editUserButton;
     private Button newTargetButton;
     private TextView nickname;
     private TextView email;
@@ -60,6 +65,11 @@ public class HomeFragment extends Fragment {
         nickname = root.findViewById(R.id.nickname_view);
         email = root.findViewById(R.id.email_text_view);
         points = root.findViewById(R.id.points_text_view);
+        editUserButton = root.findViewById(R.id.button_edit_user);
+
+        editUserButton.setOnClickListener(e->{
+            MainActivity.navController.navigate(R.id.action_navigation_home_to_navigation_edit_user);
+        });
 
         newTargetButton.setOnClickListener(e->{
             MainActivity.navController.navigate(R.id.action_navigation_home_to_navigation_qr_scan);
@@ -97,24 +107,23 @@ public class HomeFragment extends Fragment {
 
 
                     callTarget.enqueue(new Callback<List<Target>>() {
+                        @RequiresApi(api = Build.VERSION_CODES.N)
                         @Override
                         public void onResponse(Call<List<Target>> call, Response<List<Target>> response) {
                             targets = response.body();
-                            if(targets !=null){
-                                Integer sum = 0;
-
-                                for(int i =0; i < targets.size();i++){
-
-                                    sum = sum + Integer.parseInt(targets.get(i).getPoints().toString());
-                                    summary = sum;
+                            int sum = 0;
+                            if(targets != null){
+                                for (Target target: targets) {
+                                    List<UserTarget> checker = targetList.stream().filter(x -> x.getIdTarget() == target.getId()).collect(Collectors.toList());
+                                    if( checker.size() == 0 ){
+                                        sum += target.getPoints();
+                                    }
                                 }
-                                points.setText(summary.toString()+ " pkt.");
-
-                                System.out.println("zaladowano: " + targets);
-
                             } else {
                                 System.out.println(response.message());
                             }
+                            summary = sum;
+                            points.setText(summary.toString()+ " pkt.");
                         }
                         @Override
                         public void onFailure(Call<List<Target>> call, Throwable t) {
