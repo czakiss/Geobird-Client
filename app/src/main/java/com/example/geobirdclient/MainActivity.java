@@ -27,7 +27,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     public static User currentUser;
-    MainActivity mainActivity = this;
+    public MainActivity mainActivity = this;
+    public static NavController navController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                             R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                             .build();
-                    NavController navController = Navigation.findNavController(mainActivity, R.id.nav_host_fragment);
+                    navController = Navigation.findNavController(mainActivity, R.id.nav_host_fragment);
                     NavigationUI.setupActionBarWithNavController(mainActivity, navController, appBarConfiguration);
                     NavigationUI.setupWithNavController(navView, navController);
 

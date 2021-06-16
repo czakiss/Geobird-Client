@@ -1,5 +1,6 @@
 package com.example.geobirdclient.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.geobirdclient.MainActivity;
 import com.example.geobirdclient.R;
@@ -26,6 +29,7 @@ import com.example.geobirdclient.api.models.usertarget.UserTargetGetByUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +49,7 @@ public class HomeFragment extends Fragment {
     private Integer summary;
     List<Target> targets;
     Fragment fragment = this;
+    NavController navigation;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,11 +63,16 @@ public class HomeFragment extends Fragment {
         email = root.findViewById(R.id.email_text_view);
         points = root.findViewById(R.id.points_text_view);
 
+        newTargetButton.setOnClickListener(e->{
+            MainActivity.navController.navigate(R.id.action_navigation_home_to_navigation_qr_scan);
+        });
+
         addActions();
 
         return root;
     }
 
+    @SuppressLint("SetTextI18n")
     private void addActions() {
         loginButton.setOnClickListener(view -> {
             dropUserCredentials();
@@ -95,11 +105,13 @@ public class HomeFragment extends Fragment {
                             if(targets !=null){
                                 Integer sum = 0;
 
-                                for(int i =0; i <= targets.size();i++){
+                                for(int i =0; i < targets.size();i++){
 
                                     sum = sum + Integer.parseInt(targets.get(i).getPoints().toString());
                                     summary = sum;
                                 }
+                                points.setText(summary.toString()+ " pkt.");
+
                                 System.out.println("zaladowano: " + targets);
 
                             } else {
@@ -120,7 +132,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-        points.setText(summary.toString());
 
         if(MainActivity.currentUser.getPermission() == 1){
             newTargetButton.setVisibility(View.VISIBLE);

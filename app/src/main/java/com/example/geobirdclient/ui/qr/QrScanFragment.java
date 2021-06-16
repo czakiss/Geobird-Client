@@ -152,9 +152,12 @@ public class QrScanFragment extends Fragment {
                 public void onResponse(Call<UserTargetAddResponseDTO> call, Response<UserTargetAddResponseDTO> response) {
                     if(response.code()==200){
                         Toast.makeText(activity, getString(R.string.qr_code_added_target),Toast.LENGTH_LONG).show();
+                        MainActivity.navController.navigate(R.id.action_navigation_qr_scan_to_navigation_gallery);
+
 
                     } else  if (response.code()==409){
                         Toast.makeText(activity, getString(R.string.qr_code_exists_target),Toast.LENGTH_LONG).show();
+
 
                     } else {
                         Toast.makeText(activity, getString(R.string.error),Toast.LENGTH_LONG).show();
@@ -168,8 +171,8 @@ public class QrScanFragment extends Fragment {
                 }
             });
 
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(getActivity(), MainActivity.class);
+           // startActivity(intent);
         });
     }
 
