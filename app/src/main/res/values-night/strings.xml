@@ -21,4 +21,15 @@
     <string name="password_empty">password is empty</string>
     <string name="title_gallery">Galeria</string>
     <string name="target_preview">target preview</string>
+    <string name="title_map">map</string>
+    <string name="add_target">add target</string>
+    <string name="delete_target">delete target</string>
+    <string name="code">code</string>
+    <string name="longitude">longitude</string>
+    <string name="latitude">latitude</string>
+    <string name="description">description</string>
+    <string name="image">image</string>
+    <string name="points">points</string>
+    <string name="name">name</string>
+    <string name="update_target">updated target</string>
 </resources>

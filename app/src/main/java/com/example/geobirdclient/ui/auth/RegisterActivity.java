@@ -3,10 +3,8 @@ package com.example.geobirdclient.ui.auth;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +14,6 @@ import com.example.geobirdclient.R;
 import com.example.geobirdclient.api.Api;
 import com.example.geobirdclient.api.UserService;
 import com.example.geobirdclient.api.models.User.User;
-import com.example.geobirdclient.api.models.User.UserLogin;
 import com.example.geobirdclient.api.models.User.UserRegister;
 import com.example.geobirdclient.api.models.User.UserResponse;
 import com.google.android.material.textfield.TextInputLayout;
@@ -51,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        textLogin = findViewById(R.id.loginTextField);
+        textLogin = findViewById(R.id.nameTextField);
         textPassword = findViewById(R.id.passwordTextField);
         textRepeat = findViewById(R.id.passwordRepeatTextField);
         textEmail = findViewById(R.id.emailTextField);
