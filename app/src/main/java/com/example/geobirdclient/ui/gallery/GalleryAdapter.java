@@ -74,14 +74,13 @@ public class GalleryAdapter extends BaseAdapter {
             LinearLayout linearLayout = (LinearLayout) gridView.findViewById(R.id.targetWindow);
             Integer id = targets.get(position).getId();
             List<UserTarget> checker = userTargets.stream().filter(x -> x.getIdTarget() == id).collect(Collectors.toList());
-            if( checker.size() == 0){
+            if( checker.size() == 0 ){
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.logo_bird)).into(imageView);
-
             } else{
                 Glide.with(context).load(targets.get(position).getImage()).into(imageView);
-
             }
             textView.setText(targets.get(position).getName());
+
 
         }
 
