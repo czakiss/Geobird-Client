@@ -15,8 +15,20 @@
             app:destination="@id/navigation_qr_scan"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_edit_user"
+            app:destination="@id/navigation_edit_user" />
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_edit_user"
+        android:name="com.example.geobirdclient.ui.user.Edit_user"
+        android:label="@string/edit_user"
+        tools:layout="@layout/edit_user_fragment">
+        <action
+            android:id="@+id/action_navigation_edit_user_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.geobirdclient.ui.dashboard.DashboardFragment"
@@ -24,19 +36,27 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
+        android:id="@+id/navigation_gallery"
+        android:name="com.example.geobirdclient.ui.gallery.GalleryFragment"
+        android:label="@string/title_gallery"
+        tools:layout="@layout/fragment_gallery" />
+    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.geobirdclient.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.example.geobirdclient.ui.map.MapFragment"
+        android:label="@string/title_map"
+        tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/navigation_qr_scan"
         android:name="com.example.geobirdclient.ui.qr.QrScanFragment"
         android:label="@string/qr_scan"
         tools:layout="@layout/fragment_qr_scan" >
         <action
-            android:id="@+id/action_navigation_qr_scan_to_navigation_home"
-            app:destination="@id/navigation_home"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
+            android:id="@+id/action_navigation_qr_scan_to_navigation_gallery"
+            app:destination="@id/navigation_gallery" />
     </fragment>
 </navigation>

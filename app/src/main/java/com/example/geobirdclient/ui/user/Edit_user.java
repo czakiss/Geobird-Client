@@ -1,37 +1,45 @@
-package com.example.geobirdclient.ui.auth;
+package com.example.geobirdclient.ui.user;
 
+import androidx.lifecycle.ViewModelProvider;
+
+import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.bumptech.glide.Glide;
 import com.example.geobirdclient.MainActivity;
 import com.example.geobirdclient.R;
 import com.example.geobirdclient.api.Api;
 import com.example.geobirdclient.api.UserService;
 import com.example.geobirdclient.api.models.User.User;
+import com.example.geobirdclient.api.models.User.UserEdit;
 import com.example.geobirdclient.api.models.User.UserRegister;
 import com.example.geobirdclient.api.models.User.UserResponse;
+import com.example.geobirdclient.ui.auth.ModalWidgets;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity {
+public class Edit_user extends Fragment {
 
     private TextInputLayout textLogin;
     private TextInputLayout textPassword;
     private TextInputLayout textRepeat;
-    private TextInputLayout textEmail;
     private Button registerButton;
+    private Button registerCancelButton;
     private ImageView image;
 
     private String password;
@@ -39,40 +47,54 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String email;
     private String login;
+    private EditUserViewModel mViewModel;
 
-    public static final Pattern emailRegex = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    private ModalWidgets modalWidgets;
 
-    ModalWidgets modalWidgets = new ModalWidgets(this);
+    private View root;
 
+    public static Edit_user newInstance() {
+        return new Edit_user();
+    }
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        textLogin = findViewById(R.id.nameTextField);
-        textPassword = findViewById(R.id.passwordTextField);
-        textRepeat = findViewById(R.id.passwordRepeatTextField);
-        textEmail = findViewById(R.id.emailTextField);
-        registerButton = findViewById(R.id.registerButton);
-        image = findViewById(R.id.imageView);
-        Glide.with(this).load(getResources().getDrawable(R.drawable.logo_bird)).into(image);
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
+        root = inflater.inflate(R.layout.edit_user_fragment, container, false);
+        modalWidgets = new ModalWidgets(root.getContext());
+
+        textLogin = root.findViewById(R.id.nameTextField);
+        textPassword = root.findViewById(R.id.passwordTextField);
+        textRepeat = root.findViewById(R.id.passwordRepeatTextField);
+        registerButton = root.findViewById(R.id.registerButton);
+        registerCancelButton = root.findViewById(R.id.registerCancelButton);
+
         addActions();
+
+        return root;
     }
 
 
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mViewModel = new ViewModelProvider(this).get(EditUserViewModel.class);
+        // TODO: Use the ViewModel
+    }
 
     private void addActions() {
         registerButton.setOnClickListener(view -> {
             login = textLogin.getEditText().getText().toString();
             password = textPassword.getEditText().getText().toString();
             passwordRepeat = textRepeat.getEditText().getText().toString();
-            email = textEmail.getEditText().getText().toString();
 
-            boolean chM = checkMail();
             boolean chP = checkPassword();
             boolean chL = checkLogin();
-            if(chM && chP && chL){
+            if(chP && chL){
                 UserService service = Api.getRetrofit().create(UserService.class);
-                Call<UserResponse> call = service.registerUser(new UserRegister(email,password,login));
+                Call<UserResponse> call = service.editUser(new UserEdit(email,password,login));
                 call.enqueue(new Callback<UserResponse>() {
                     @Override
                     public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
@@ -80,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if(userResponse !=null){
                             if(userResponse.getUser() != null){
                                 User user = userResponse.getUser();
-                                System.out.println("Zarejestrowano: "+user.getNickname());
+                                System.out.println("Edycja pomyślna : "+user.getNickname());
                                 saveUserCredentials(login,password);
                                 redirectToMain(user);
                             } else {
@@ -88,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         } else {
                             modalWidgets.showToast(getString(R.string.error));
+                            System.out.println(call.hashCode()  + response.code() + response.body().getStatus());
                         }
                     }
                     @Override
@@ -97,21 +120,6 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    private boolean checkMail(){
-        Matcher matcher = emailRegex.matcher(email);
-        if(email.equals("")){
-            textEmail.setError(getString(R.string.mail_is_empty));
-            textEmail.setErrorEnabled(true);
-        }else if(!matcher.find()){
-            textEmail.setError(getString(R.string.mail_incorrect));
-            textEmail.setErrorEnabled(true);
-        }else{
-            textEmail.setErrorEnabled(false);
-            return true;
-        }
-        return false;
     }
 
     private boolean checkLogin(){
@@ -133,14 +141,14 @@ public class RegisterActivity extends AppCompatActivity {
             textPassword.setError(getString(R.string.password_empty));
             textPassword.setErrorEnabled(true);
         } else {
-                textPassword.setErrorEnabled(false);
-                return true;
+            textPassword.setErrorEnabled(false);
+            return true;
         }
         return false;
     }
 
     public void saveUserCredentials(String login, String password) {
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("USER_CREDENTIALS_LOGIN", login);
         editor.apply();
@@ -150,9 +158,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void redirectToMain(User loggedUser) {
         MainActivity.currentUser = loggedUser;
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
-
 
 }

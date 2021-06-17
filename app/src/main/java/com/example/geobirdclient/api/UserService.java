@@ -2,6 +2,7 @@ package com.example.geobirdclient.api;
 
 import com.example.geobirdclient.api.models.User.User;
 import com.example.geobirdclient.api.models.User.UserDelete;
+import com.example.geobirdclient.api.models.User.UserEdit;
 import com.example.geobirdclient.api.models.User.UserLogin;
 import com.example.geobirdclient.api.models.User.UserRegister;
 import com.example.geobirdclient.api.models.User.UserResponse;
@@ -25,4 +26,8 @@ public interface UserService {
 
     @POST("api/user/delete")
     Call<UserResponse> deleteUser(@Body UserDelete userDelete);
+
+    @POST("api/user/edit")
+    Call<UserResponse> editUser(@Body UserEdit userEdit);
+
 }

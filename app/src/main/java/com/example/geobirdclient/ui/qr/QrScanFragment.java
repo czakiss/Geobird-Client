@@ -93,6 +93,8 @@ public class QrScanFragment extends Fragment {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            System.out.println("test" + result.getText());
+
                             TargetService service = Api.getRetrofit().create(TargetService.class);
                             Call<TargetGetResponse> call = service.getTarget(new TargetGet(result.getText()));
                             call.enqueue(new Callback<TargetGetResponse>() {
@@ -115,6 +117,7 @@ public class QrScanFragment extends Fragment {
 
                                 @Override
                                 public void onFailure(Call<TargetGetResponse> call, Throwable t) {
+                                    System.out.println(t.getMessage());
                                     Toast.makeText(activity, "Something goes wrong: "+ t.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
@@ -130,8 +133,6 @@ public class QrScanFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     mCodeScanner.startPreview();
-
-
                 }
             });
         }
@@ -151,9 +152,12 @@ public class QrScanFragment extends Fragment {
                 public void onResponse(Call<UserTargetAddResponseDTO> call, Response<UserTargetAddResponseDTO> response) {
                     if(response.code()==200){
                         Toast.makeText(activity, getString(R.string.qr_code_added_target),Toast.LENGTH_LONG).show();
+                        MainActivity.navController.navigate(R.id.action_navigation_qr_scan_to_navigation_gallery);
+
 
                     } else  if (response.code()==409){
                         Toast.makeText(activity, getString(R.string.qr_code_exists_target),Toast.LENGTH_LONG).show();
+
 
                     } else {
                         Toast.makeText(activity, getString(R.string.error),Toast.LENGTH_LONG).show();
@@ -167,8 +171,8 @@ public class QrScanFragment extends Fragment {
                 }
             });
 
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(getActivity(), MainActivity.class);
+           // startActivity(intent);
         });
     }
 
