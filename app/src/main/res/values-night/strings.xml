@@ -33,4 +33,6 @@
     <string name="name">name</string>
     <string name="update_target">updated target</string>
     <string name="edit_user">Edit User</string>
+    <string name="save">save</string>
+    <string name="cancel">cancel</string>
 </resources>
